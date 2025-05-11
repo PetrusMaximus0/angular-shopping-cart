@@ -1,0 +1,14 @@
+.main-animate{
+  position: relative;
+  animation-name: slideIn;
+  animation-duration: 0.4s;
+}
+
+@keyframes slideIn {
+  from{
+    left:-100vh;
+  }
+  to{
+    left:0;
+  }
+}
