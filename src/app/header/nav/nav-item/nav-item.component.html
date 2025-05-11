@@ -1,0 +1,11 @@
+<li class="w-fit h-fit bg-primary rounded-lg px-2 py-1.5">
+  <a
+    routerLink="{{ destination() }}"
+    routerLinkActive="active"
+    ariaCurrentWhenActive="page"
+    class="flex items-center gap-1.5 hover:text-accent"
+  >
+    <span class="material-symbols-outlined" [class.filled]="isFilled()"> {{ iconName() }} </span>
+    {{ title() }}
+  </a>
+</li>
