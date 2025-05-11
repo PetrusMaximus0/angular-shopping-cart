@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@use "tailwindcss";
+
+@theme {
+  --color-primary: #1B2930;
+  --color-neutral: #11191D;
+  --color-complementary: #FFFFFF;
+  --color-accent: #F07828;
+  --color-logoText: #FF003B;
+  --color-ctaBgA: #F3FF50;
+  --color-ctaBgB: #F59814;
+}
+
+body{
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
