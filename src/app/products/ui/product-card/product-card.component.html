@@ -1,0 +1,19 @@
+<li class="grid gap-4 p-4 text-complementary bg-primary rounded-2xl content-between justify-center grid-rows-[150px_repeat(3,auto)]">
+  <figure class="h-36 w-36 mx-auto">
+  <img
+    class="object-contain h-full w-auto mx-auto"
+    [src]="data().image"
+    [alt]="data().title"
+  />
+  </figure>
+  <a
+    class="max-w-full text-lg whitespace-nowrap overflow-hidden text-ellipsis"
+    routerLinkActive="active"
+    ariaCurrentWhenActive="page"
+    routerLink="/products/data().id"
+  >
+    Product {{ data().title }}
+  </a>
+  <p class="text-xl font-bold"> {{ data().price }} €</p>
+  <app-add-to-cart-button/>
+</li>

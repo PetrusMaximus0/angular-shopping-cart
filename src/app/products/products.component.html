@@ -1,0 +1,13 @@
+@if (response(); as response ){
+  @if (response.error) {
+    <p> {{ response.error.message }} </p>
+  }@else if (response.data){
+    <ul class="main-animate grid gap-4 px-2 justify-around grid-cols-[repeat(auto-fit,340px)]">
+      @for (product of response.data! ; track product.id) {
+        <app-product-card [data]="product"/>
+      }
+    </ul>
+  }@else{
+    <p> Loading products...</p>
+  }
+}
