@@ -1,1 +1,25 @@
-<p>product-detail works!</p>
+@if(response(); as response) {
+  @if(response.error){
+    <p> {{ response.error.message }} </p>
+  }@else if(response.data){
+    <section class="bg-primary text-complementary font-bold p-2 rounded-2xl container h-full flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-between gap-4">
+      <figure class="max-w-80 min-w-72">
+        <img
+          class="object-contain h-full w-full"
+          [src]="response.data.image"
+          alt="Product Image"
+        />
+      </figure>
+      <div class="flex flex-col gap-8 justify-between items-start">
+        <h1 class="text-2xl">{{ response.data.title }}</h1>
+        <p class="text-3xl">{{ response.data.price }}€</p>
+        <p>{{ response.data.description }}</p>
+        <app-add-to-cart-button/>
+      </div>
+    </section>
+  }@else {
+    <p> Loading products...</p>
+  }
+}
+
+

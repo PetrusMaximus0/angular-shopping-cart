@@ -1,5 +1,5 @@
 import {Component, inject, Signal} from '@angular/core';
-import {ProductsService} from '../services/products.service';
+import {ProductsService} from '../shared/services/products.service';
 import {ILoadingState} from '../shared/interfaces/ILoadingState';
 import {IProduct} from '../shared/interfaces/IProduct';
 import {ProductCardComponent} from './ui/product-card/product-card.component';
@@ -15,7 +15,7 @@ import {ProductCardComponent} from './ui/product-card/product-card.component';
 export default class ProductsComponent {
   private productsService = inject(ProductsService);
   response : Signal<ILoadingState<IProduct[]>>;
-    constructor() {
+  constructor() {
     this.response = this.productsService.getProducts();
   }
 }

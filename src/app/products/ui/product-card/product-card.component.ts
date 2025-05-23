@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {AddToCartButtonComponent} from '../../../shared/add-to-cart-button/add-to-cart-button.component';
+import {AddToCartButtonComponent} from '../../../shared/components/add-to-cart-button/add-to-cart-button.component';
 import {IProduct} from '../../../shared/interfaces/IProduct';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 
