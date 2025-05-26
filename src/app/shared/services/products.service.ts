@@ -1,6 +1,5 @@
-import {inject, Injectable, Signal} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {toSignal} from '@angular/core/rxjs-interop';
 import { IProduct } from '../interfaces/IProduct';
 import {catchError, map, Observable, of} from 'rxjs';
 import {ILoadingState} from '../interfaces/ILoadingState';
@@ -10,17 +9,18 @@ import {ILoadingState} from '../interfaces/ILoadingState';
 })
 
 export class ProductsService {
-  constructor() {
-  }
-  private productsEndpointUrl = "https://fakestoreapi.com/products";
 
+  private productsEndpointUrl = "https://fakestoreapi.com/products";
   private http = inject(HttpClient);
 
-  public getProductById(id: string) : Signal<ILoadingState<IProduct>> {
-    return toSignal(this.fetchProductById(id), {initialValue: {error: null, data: null}});
+  public getProductById(id: string) {
+    return this.fetchProductById(id);
+    //return toSignal(this.fetchProductById(id), {initialValue: {error: null, data: null}});
   }
-  public getProducts() : Signal<ILoadingState<IProduct[]>> {
-    return toSignal(this.fetchProducts(), {initialValue: {error: null, data: null}});
+
+  public getProducts() {
+    return this.fetchProducts();
+    //return toSignal(this.fetchProducts(), {initialValue: {error: null, data: null}});
   }
 
   private fetchProductById(id: string) : Observable<ILoadingState<IProduct>> {
@@ -28,6 +28,9 @@ export class ProductsService {
       .get<IProduct>(`${this.productsEndpointUrl}/${id}`)
       .pipe(
         map(data=> {
+          if(data===null){
+            return {error: new Error('No product with id ' + id), data: null};
+          }
           return {error: null, data: data}
         }),
         catchError(this.handleError)
@@ -36,7 +39,7 @@ export class ProductsService {
 
   private fetchProducts() : Observable<ILoadingState<IProduct[]>> {
     return this.http
-      .get<IProduct[]>(this.productsEndpointUrl+"/?limit=20")
+      .get<IProduct[]>(this.productsEndpointUrl+"/?limit=100")
       .pipe(
         map((data)=>{
           return { error: null, data: [...data]}

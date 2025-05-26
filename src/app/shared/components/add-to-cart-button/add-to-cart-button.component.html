@@ -1,1 +1,41 @@
-<p>add-to-cart-button works!</p>
+<form
+  class="flex justify-between items-center gap-1 w-full"
+  (ngSubmit)="handleSubmit()"
+  [formGroup]="addItemsForm"
+>
+  <div class="flex justify-center items-center gap-2">
+    <button
+      aria-label="decrease items"
+      class="px-2 hover:bg-red-500 active:bg-accent active:text-white rounded-xl"
+      (click)="handleDecNum()"
+      type="button"
+    >
+       -
+    </button>
+    <input
+      formControlName="itemNumber"
+      aria-label="product number"
+      class="w-16 rounded-xl bg-neutral text-center"
+      type="number"
+      name="productNumber"
+      id="productNumber"
+      required
+    />
+    <button
+      aria-label="increase items"
+      class="text-xl px-2 hover:bg-teal-500 active:bg-accent active:text-white rounded-xl"
+      (click)="handleIncNum()"
+      type="button"
+    >
+      +
+    </button>
+  </div>
+  <button
+    [disabled] = "!addItemsForm.valid"
+    type="submit"
+    class="text-lg active:bg-accent active:text-neutral hover:border hover:border-accent bg-neutral text-complementary font-bold rounded-2xl w-32 px-1 py-1"
+  >
+    {{ altBtnText() || btnText() }}
+  </button>
+  ICON
+</form>
