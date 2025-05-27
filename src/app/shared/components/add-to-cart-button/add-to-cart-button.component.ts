@@ -1,4 +1,4 @@
-import {Component, inject, input, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit, signal} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
@@ -39,19 +39,27 @@ export class AddToCartButtonComponent {
       })
   }
 
+  protected iconName = "check_circle";
+
   private fb = inject(FormBuilder);
 
   public addItemsForm: FormGroup;
 
-  protected altBtnText = input<string>("");
+  protected altBtnText = signal<string|null>(null);
 
   protected btnText = input<string>("add");
 
   protected handleSubmit(){
     // use cart service to update the number of items on cart.
     // Only add to the cart if the number of items of this kind in the cart is less than 10.
-    alert("Added " + this.addItemsForm.value.itemNumber + " units to cart");
+    console.log("Added " + this.addItemsForm.value.itemNumber + " units to cart");
+    this.altBtnText.set("Item Added");
     this.addItemsForm.reset({...this.addItemsForm.value, itemNumber: 1});
+
+    const interval = setTimeout(() => {
+      this.altBtnText.set(null);
+      clearTimeout(interval);
+    },2000)
   }
 
   protected handleIncNum(){
@@ -75,5 +83,9 @@ export class AddToCartButtonComponent {
       ...this.addItemsForm.value,
       itemNumber:this.clamp(value, 1, 10),
     })
+  }
+
+  protected handleOnFocus($event: FocusEvent) {
+    ($event.target as HTMLInputElement).select();
   }
 }
