@@ -1,6 +1,6 @@
 import {Component, inject, input, OnInit, signal, WritableSignal} from '@angular/core';
 import {AddToCartButtonComponent} from '../../shared/components/add-to-cart-button/add-to-cart-button.component';
-import {ProductsService} from '../../shared/services/products.service';
+import {ProductsService} from '../../shared/services/products/products.service';
 import {ActivatedRoute} from '@angular/router';
 import {IProduct} from '../../shared/interfaces/IProduct';
 import {ILoadingState} from '../../shared/interfaces/ILoadingState';

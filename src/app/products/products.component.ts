@@ -1,6 +1,6 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
-import {ProductsService} from '../shared/services/products.service';
-import {ProductCardComponent} from './ui/product-card/product-card.component';
+import {ProductsService} from '../shared/services/products/products.service';
+import {ProductCardComponent} from './product-card/product-card.component';
 import {ILoadingState} from '../shared/interfaces/ILoadingState';
 import {IProduct} from '../shared/interfaces/IProduct';
 

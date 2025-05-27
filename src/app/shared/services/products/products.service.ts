@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import { IProduct } from '../interfaces/IProduct';
+import { IProduct } from '../../interfaces/IProduct';
 import {catchError, map, Observable, of} from 'rxjs';
-import {ILoadingState} from '../interfaces/ILoadingState';
+import {ILoadingState} from '../../interfaces/ILoadingState';
 
 @Injectable({
   providedIn: 'root'
