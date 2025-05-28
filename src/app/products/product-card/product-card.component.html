@@ -15,5 +15,5 @@
     Product {{ data().title }}
   </a>
   <p class="text-xl font-bold"> {{ data().price }} €</p>
-  <app-add-to-cart-button/>
+  <app-add-to-cart-button [itemData]="data()"/>
 </li>

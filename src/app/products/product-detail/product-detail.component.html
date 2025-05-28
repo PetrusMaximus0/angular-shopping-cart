@@ -14,7 +14,7 @@
         <h1 class="text-2xl">{{ response.data.title }}</h1>
         <p class="text-3xl">{{ response.data.price }}€</p>
         <p>{{ response.data.description }}</p>
-        <app-add-to-cart-button/>
+        <app-add-to-cart-button [itemData]="response.data" />
       </div>
     </section>
   }@else {

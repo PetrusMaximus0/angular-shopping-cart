@@ -1,1 +1,51 @@
-<p>cart works!</p>
+@if(cartItems().length > 0){
+  <section class="text-complementary container main-animate flex flex-col my-4 mx-auto px-8 gap-4">
+    <h1 class="text-4xl text-center sm:text-left">
+      Your Order
+    </h1>
+    <form
+      onSubmit="handleOrderSubmit()"
+      id="cart"
+      class="flex flex-col items-start w-full"
+    >
+      @for (item of cartItems(); track item.id)
+      {
+        <app-cart-item [item]="item" />;
+      }
+    </form>
+
+    <div class="flex flex-col items-end">
+      <p class="text-2xl ">
+        Total:
+        <span class="font-semibold"> {{ totalPrice().toFixed(2) }} € </span>
+      </p>
+
+      <button
+        form="cart"
+        type="submit"
+        class="self-center w-fit px-4 py-1 bg-gradient-to-r from-ctaBgA to-ctaBgB hover:from-complementary hover:to-primary text-logoText rounded-lg text-2xl font-light"
+      >
+        Checkout
+      </button>
+    </div>
+    @if(orderPlaced()) {
+        <p class="text-center text-2xl">Order Successful</p>
+        <p class="text-center text-1xl ">
+          Returning to Home page shortly.
+        </p>
+    }
+  </section>
+}@else{
+  <section class="text-center text-complementary">
+    <h1 class="text-4xl my-8 ">Your Cart is Empty</h1>
+    <p class="font-light text-2xl">
+      Would you like to
+      <a class="text-accent"
+         routerLink="/products"
+         routerLinkActive="active"
+         ariaCurrentWhenActive="page">
+        Browse our wares?
+      </a>
+    </p>
+  </section>
+}
