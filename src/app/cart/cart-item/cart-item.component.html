@@ -1,0 +1,55 @@
+<div
+  class="bg-primary my-4 rounded-xl w-full items-center grid grid-rows-[auto_1fr_1fr] grid-cols-1 sm:grid-cols-[8rem_auto_1fr] gap-8 py-4 px-2"
+>
+  <figure class="row-span-3 max-w-32 mx-auto">
+    <img class="" [src]="item().image" alt="Product Image" />
+  </figure>
+  <a
+    routerLink="{{`/products/${item().id}`}}"
+    routerLinkActive="active"
+    ariaCurrentWhenActive="page"
+    class="col-span-2 text-lg font-semibold"
+  >
+    {{ item().title }}
+  </a>
+  <div class="col-span-2 w-full flex justify-between items-center">
+    <fieldset class=" flex justify-center">
+      <label for="quantity" class="mr-4 text-lg">
+        Quantity:
+      </label>
+      <button
+        aria-label="decrease items"
+        onClick="decrementNum()"
+        type="button"
+      >
+        -
+      </button>
+      <input
+        id="quantity"
+        type="number"
+        min={1}
+        max={10}
+        required
+        (change)="handleNumChange($event)"
+        class="max-w-12 h-full text-center bg-inherit"
+        value={item.quantity}
+      />
+      <button
+        aria-label="increase items"
+        onClick="incrementNum()"
+        type="button"
+      >
+       +
+      </button>
+    </fieldset>
+    <p class="text-xl">
+      Total: {{ (item().numberOfUnits * item().price).toFixed(2) }} €
+    </p>
+  </div>
+  <button
+    (click)="removeItem()"
+    class=" text-complementary col-span-2 w-fit px-6 py-1 mx-auto sm:mx-0 rounded-3xl bg-red-600 hover:border-accent border border-transparent"
+  >
+    Remove
+  </button>
+</div>

@@ -1,6 +1,9 @@
-import {Component, inject, input, OnInit, signal} from '@angular/core';
+import {Component, inject, input, signal} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import clamp from '../../utils/clamp';
+import {CartService} from '../../services/cart/cart.service';
+import {IProduct} from '../../interfaces/IProduct';
 
 @Component({
   selector: 'app-add-to-cart-button',
@@ -12,7 +15,10 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 })
 
 export class AddToCartButtonComponent {
-  constructor() {
+  private cartService: CartService;
+
+  constructor(cartService: CartService) {
+    this.cartService = cartService;
     this.addItemsForm = this.fb.group({
       itemNumber: [
         1,
@@ -39,8 +45,6 @@ export class AddToCartButtonComponent {
       })
   }
 
-  protected iconName = "check_circle";
-
   private fb = inject(FormBuilder);
 
   public addItemsForm: FormGroup;
@@ -49,10 +53,13 @@ export class AddToCartButtonComponent {
 
   protected btnText = input<string>("add");
 
+  public itemData = input.required<IProduct>();
+
   protected handleSubmit(){
     // use cart service to update the number of items on cart.
     // Only add to the cart if the number of items of this kind in the cart is less than 10.
-    console.log("Added " + this.addItemsForm.value.itemNumber + " units to cart");
+
+    this.cartService.addItemToCart(this.itemData(), this.addItemsForm.value.itemNumber);
     this.altBtnText.set("Item Added");
     this.addItemsForm.reset({...this.addItemsForm.value, itemNumber: 1});
 
@@ -73,15 +80,11 @@ export class AddToCartButtonComponent {
     this.addItemsForm.get("itemNumber")?.markAsTouched();
   }
 
-  private clamp(value: number, min: number, max: number) {
-    return (Math.max(Math.min(value, max), min));
-  }
-
   private setItemNumber(value: number) {
     if(Number.isNaN(value)) { value = 1 }
     this.addItemsForm.setValue({
       ...this.addItemsForm.value,
-      itemNumber:this.clamp(value, 1, 10),
+      itemNumber: clamp(value, 1, 10),
     })
   }
 
