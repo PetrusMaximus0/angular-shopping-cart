@@ -19,8 +19,9 @@
       </label>
       <button
         aria-label="decrease items"
-        onClick="decrementNum()"
+        (click)="decrementNum()"
         type="button"
+        class="px-2 hover:bg-red-500 active:bg-accent active:text-white rounded-xl"
       >
         -
       </button>
@@ -30,14 +31,15 @@
         min={1}
         max={10}
         required
-        (change)="handleNumChange($event)"
-        class="max-w-12 h-full text-center bg-inherit"
-        value={item.quantity}
+        (keyup)="handleNumChange($event)"
+        class="w-16 rounded-xl bg-neutral text-center mx-2"
+        value="{{ item().numberOfUnits }}"
       />
       <button
         aria-label="increase items"
-        onClick="incrementNum()"
+        (click)="incrementNum()"
         type="button"
+        class="px-2 hover:bg-teal-500 active:bg-accent active:text-white rounded-xl"
       >
        +
       </button>
@@ -47,6 +49,7 @@
     </p>
   </div>
   <button
+    type="button"
     (click)="removeItem()"
     class=" text-complementary col-span-2 w-fit px-6 py-1 mx-auto sm:mx-0 rounded-3xl bg-red-600 hover:border-accent border border-transparent"
   >
