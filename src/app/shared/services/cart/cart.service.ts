@@ -33,7 +33,11 @@ export class CartService {
   }
 
   // Remove Item
-  public removeItemFromCart(id: string) {}
+  public removeItemFromCart(id: string) {
+    this._cartItems.update(
+      ()=> this._cartItems().filter((item)=>item.id!==id)
+    );
+  }
 
   // Change Item number of units
   public setItemNumberOfUnits(id: string, amount: number) {
@@ -46,7 +50,8 @@ export class CartService {
 
   // Get cart price total
   public getTotalPrice() {
-    return 0;
+    return this._cartItems()
+      .reduce((accumulator: number, currItem: ICartItem)=>  accumulator+currItem.numberOfUnits*currItem.price, 0)
   }
 
   // Get cart total number of unique items
